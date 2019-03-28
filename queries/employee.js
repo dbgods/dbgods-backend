@@ -21,7 +21,7 @@ const addEmployee = (request, response) => {
     log("POST", "/employees", JSON.stringify(request.body));
     const queryInsert = {
         name: 'insert-employee',
-        text: 'INSERT INTO "employee" VALUES (DEFAULT, $1, $2, $3, $4, $5, $6);',
+        text: 'INSERT INTO "employee" (employee_name, employee_address, employee_contact, employee_position, employee_rank, employee_payroll) VALUES ($1, $2, $3, $4, $5, $6);',
         values: [request.body.name, request.body.address, request.body.contact, request.body.position, request.body.rank, request.body.payroll]
     }
     pool.query(queryInsert, (err, results) => {
@@ -29,7 +29,7 @@ const addEmployee = (request, response) => {
             console.log(err.message);
             response.status(400).json({"Error": err.message});
         } else {
-            response.status(200).json({"Success": "Created Warehouse " + request.body.region});
+            response.status(200).json({"Success": "Created Employee " + request.body.name});
         }
     });
 }

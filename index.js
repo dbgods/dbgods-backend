@@ -119,7 +119,7 @@ app.delete('/customers/', customer.deleteCustomer)
 app.put('/customers/', customer.modifyCustomer)
 
 // Special
-app.get('/special/packages', special.getPackageSpecial)
+app.post('/special/selection', special.getSelection)
 app.get('/special/drivers', special.getDriverSpecial)
 
 
