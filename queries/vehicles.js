@@ -80,8 +80,8 @@ const modifyVehicle = (request, response) => {
     const queryInsert = {
         name: 'modify-vehicle',
         text: 'UPDATE "vehicle" SET vehicle_type = $1, vehicle_maxcapacity = $2,'
-        + ' vehicle_availability = $3, vehicle_whethertorepair = $4, vehicle_insurancenumber = $5, vehicle_warehouseregion = $6 WHERE "vehicle_number" = $7;',
-        values: [request.body.type, request.body.maxcapacity, request.body.availability, request.body.whethertorepair, request.body.insurancenumber, request.body.warehouseregion, request.body.number]
+        + ' vehicle_availability = $3, vehicle_whethertorepair = $4, vehicle_warehouseregion = $5 WHERE "vehicle_number" = $6;',
+        values: [request.body.type, request.body.maxcapacity, request.body.availability, request.body.whethertorepair, request.body.warehouseregion, request.body.number]
     }
     pool.query(queryInsert, (err, results) => {
         if (err) {
