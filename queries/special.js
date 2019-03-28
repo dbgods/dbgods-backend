@@ -29,6 +29,10 @@ const getSelection = (request, response) => {
     let sign = request.body.sign;
     let where = request.body.column;
 
+    if (request.body.isNumber == "true") {
+        request.body.condition = parseInt(request.body.condition, 10);
+    }
+
     const query = {
         name: 'special-selection',
         text: 'SELECT * FROM "vehicle" WHERE ' + where + ' ' + sign + ' $1;',
