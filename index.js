@@ -62,6 +62,7 @@ app.put('/complaints/', complaints.modifyComplaint)
 // Vehicles
 // GET - List All Vehicles (Driver, Manager)
 app.get('/vehicles/', vehicles.getVehicles)
+app.post('/vehicles/insurance', vehicles.addInsurance)
 // POST - Add a Vehicle (Driver, Manager)
 app.post('/vehicles/', vehicles.addVehicle)
 // DELETE - Delete a Vehicle (Driver, Manager)

@@ -17,9 +17,10 @@ const getVehicles = (request, response) => {
 }
 
 const addVehicle = (request, response) => {
+    log("POST", "/vehicle", JSON.stringify(request.body));
     const queryInsert = {
         name: 'insert-vehicle',
-        text: 'INSERT INTO "vehicle" VALUES (DEFAULT, $1, $2, $3, $4, $5, $6);',
+        text: 'INSERT INTO "vehicle" (vehicle_type, vehicle_maxcapacity, vehicle_availability, vehicle_whethertorepair, insurance_number, warehouse_region) VALUES ($1, $2, $3, $4, $5, $6);',
         values: [request.body.type, request.body.maxcapacity, request.body.availability, request.body.whethertorepair,request.body.insurancenumber, request.body.warehouseregion]
     }
     pool.query(queryInsert, (err, results) => {
@@ -28,6 +29,23 @@ const addVehicle = (request, response) => {
             response.status(400).json({"Error": err.message});
         } else {
             response.status(200).json({"Success": "Created Vehicle " + request.body.number});
+        }
+    });
+}
+
+const addInsurance = (request, response) => {
+    log("POST", "/vehicle/insurance", JSON.stringify(request.body));
+    const queryInsert = {
+        name: 'insert-insurance',
+        text: 'INSERT INTO "insurance" (insurance_number, insurance_coverage) VALUES ($1, $2);',
+        values: [request.body.insurance_number, request.body.insurance_coverage]
+    }
+    pool.query(queryInsert, (err, results) => {
+        if (err) {
+            console.log(err.message);
+            response.status(400).json({"Error": err.message});
+        } else {
+            response.status(200).json({"Success": "Created Insurance " + request.body.insurance_number});
         }
     });
 }
@@ -78,6 +96,7 @@ const modifyVehicle = (request, response) => {
 module.exports = {
     getVehicles,
     addVehicle,
+    addInsurance,
     modifyVehicle,
     deleteVehicle
 }
