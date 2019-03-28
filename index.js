@@ -12,6 +12,7 @@ const vehicles = require('./queries/vehicles')
 const warehouse = require('./queries/warehouse')
 const driver = require('./queries/driver')
 const manager = require('./queries/manager')
+const employee = require('./queries/employee')
 
 const special = require('./queries/special')
 
@@ -46,6 +47,12 @@ app.get('/packages/', special.getPackageSpecial)
 app.post('/packages/', packages.addPackage)
 app.put('/packages/', packages.modifyPackage)
 app.delete('/packages/', packages.deletePackage)
+
+// Employee
+app.get('/employees/', employee.getEmployee)
+app.post('/employees/', employee.addEmployee)
+app.put('/employees/', employee.modifyEmployee)
+app.delete('/employees/', employee.deleteEmployee)
 
 // GET - List customer's package (Customer, Driver, Manager)
 

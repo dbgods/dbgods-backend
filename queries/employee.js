@@ -6,6 +6,7 @@ const pool = db.getPool();
 */
 
 const getEmployee = (request, response) => {
+    log("GET", "/employees", JSON.stringify(request.body));
     pool.query('SELECT * FROM "employee";', (err, results) => {
         if (err) {
             console.log(err.message);
@@ -17,6 +18,7 @@ const getEmployee = (request, response) => {
 }
 
 const addEmployee = (request, response) => {
+    log("POST", "/employees", JSON.stringify(request.body));
     const queryInsert = {
         name: 'insert-employee',
         text: 'INSERT INTO "employee" VALUES (DEFAULT, $1, $2, $3, $4, $5, $6);',
@@ -59,6 +61,7 @@ const deleteEmployee = (request, response) => {
 }
 
 const modifyEmployee = (request, response) => {
+    log("PUT", "/employees", JSON.stringify(request.body));
     const queryInsert = {
         name: 'modify-employee',
         text: 'UPDATE "employee" SET employee_name = $1, employee_address = $2, employee_contact = $3,'

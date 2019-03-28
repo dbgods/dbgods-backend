@@ -6,6 +6,7 @@ const pool = db.getPool();
 */
 
 const getVehicles = (request, response) => {
+    log("GET", "/vehicle", JSON.stringify(request.body));
     pool.query('SELECT * FROM "vehicle";', (err, results) => {
         if (err) {
             console.log(err.message);
@@ -77,10 +78,11 @@ const deleteVehicle = (request, response) => {
 }
 
 const modifyVehicle = (request, response) => {
+    log("PUT", "/vehicle", JSON.stringify(request.body));
     const queryInsert = {
         name: 'modify-vehicle',
         text: 'UPDATE "vehicle" SET vehicle_type = $1, vehicle_maxcapacity = $2,'
-        + ' vehicle_availability = $3, vehicle_whethertorepair = $4, vehicle_warehouseregion = $5 WHERE "vehicle_number" = $6;',
+        + ' vehicle_availability = $3, vehicle_whethertorepair = $4, warehouse_region = $5 WHERE "vehicle_number" = $6;',
         values: [request.body.type, request.body.maxcapacity, request.body.availability, request.body.whethertorepair, request.body.warehouseregion, request.body.number]
     }
     pool.query(queryInsert, (err, results) => {
