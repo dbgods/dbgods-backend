@@ -93,15 +93,12 @@ const getJoin = (request, response) => {
     let table2_cond = request.body.table2 + "." + request.body.table2_condition;
     let table2_select = request.body.table2_cols.split(",").map(x => table2 + "." + x).join(", ");
 
-    console.log(table1_select, table2_select)
-
     const query = {
         name: 'special-join',
         text: 'SELECT ' + table1_select + ', ' + table2_select + ' FROM "' + table1 + '" join "' + table2 + '" on ' + table1_cond + ' = ' + table2_cond,
         values: []
     }
 
-    console.log(query.text)
     pool.query(query, (err, results) => {
         if (err) {
             console.log(err.message);
