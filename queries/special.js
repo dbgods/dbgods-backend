@@ -88,4 +88,5 @@ module.exports = {
     getDriverSpecial,
     getSelection,
     getProjection,
+    getSalaryStat,
 }
