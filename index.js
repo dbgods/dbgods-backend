@@ -120,6 +120,6 @@ app.put('/customers/', customer.modifyCustomer)
 
 // Special
 app.post('/special/selection', special.getSelection)
-app.get('/special/drivers', special.getDriverSpecial)
+app.post('/special/projection', special.getProjection)
 
 

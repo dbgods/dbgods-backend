@@ -49,9 +49,31 @@ const getSelection = (request, response) => {
     });
 }
 
+const getProjection = (request, response) => {
+    log("POST", "/special/projection", JSON.stringify(request.body));
+    let table = request.body.table;
+    let column = request.body.column;
+
+    const query = {
+        name: 'special-selection',
+        text: 'SELECT ' + column + ' FROM "' + table + '"',
+        values: []
+    }
+    console.log(query.text)
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.log(err.message);
+            response.status(400).json({"Error": err.message});
+        } else {
+            response.status(200).json(results.rows);
+        }
+    });
+}
+
 
 module.exports = {
     getPackageSpecial,
     getDriverSpecial,
-    getSelection
+    getSelection,
+    getProjection,
 }
