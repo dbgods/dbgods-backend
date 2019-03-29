@@ -121,5 +121,6 @@ app.put('/customers/', customer.modifyCustomer)
 // Special
 app.post('/special/selection', special.getSelection)
 app.post('/special/projection', special.getProjection)
+app.post('/special/join', special.getJoin)
 
 

@@ -82,6 +82,36 @@ const getProjection = (request, response) => {
     });
 }
 
+const getJoin = (request, response) => {
+    log("POST", "/special/join", JSON.stringify(request.body));
+    let table1 = request.body.table1;
+    let table1_cond = request.body.table1 + "." + request.body.table1_condition;
+    let table1_select = request.body.table1_cols.split(",").map(x => table1 + "." + x).join(", ");
+
+
+    let table2 = request.body.table2;
+    let table2_cond = request.body.table2 + "." + request.body.table2_condition;
+    let table2_select = request.body.table2_cols.split(",").map(x => table2 + "." + x).join(", ");
+
+    console.log(table1_select, table2_select)
+
+    const query = {
+        name: 'special-join',
+        text: 'SELECT ' + table1_select + ', ' + table2_select + ' FROM "' + table1 + '" join "' + table2 + '" on ' + table1_cond + ' = ' + table2_cond,
+        values: []
+    }
+
+    console.log(query.text)
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.log(err.message);
+            response.status(400).json({"Error": err.message});
+        } else {
+            response.status(200).json(results.rows);
+        }
+    });
+}
+
 
 module.exports = {
     getPackageSpecial,
@@ -89,4 +119,5 @@ module.exports = {
     getSelection,
     getProjection,
     getSalaryStat,
+    getJoin
 }
