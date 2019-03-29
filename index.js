@@ -123,5 +123,6 @@ app.post('/special/selection', special.getSelection)
 app.post('/special/projection', special.getProjection)
 app.post('/special/join', special.getJoin)
 app.get('/special/salary', special.getSalaryStat)
+app.get('/special/complain', special.getComplaintStat)
 
 
