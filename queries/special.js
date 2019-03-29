@@ -120,6 +120,28 @@ const getJoin = (request, response) => {
     });
 }
 
+const getDivision = (request, response) => {
+    log("POST", "/special/division", JSON.stringify(request.body));
+
+    const query = {
+        name: 'special-division',
+        text: 'SELECT DISTINCT ' + request.body.all + ' FROM "' + request.body.table + '" as main where not exists ('
+        + '(select ' + request.body.where + ' from ' + request.body.tabledivisor + ')'
+        + ' except (select ' + request.body.where + ' from ' + request.body.tabledivisor + ' as c2 where '
+        + 'c2.' + request.body.all + ' = main.' + request.body.all + '))',
+        values: []
+    }
+    // console.log(query.text)
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.log(err.message);
+            response.status(400).json({"Error": err.message});
+        } else {
+            response.status(200).json(results.rows);
+        }
+    });
+}
+
 
 module.exports = {
     getPackageSpecial,
@@ -128,5 +150,6 @@ module.exports = {
     getProjection,
     getSalaryStat,
     getComplaintStat,
+    getDivision,
     getJoin
 }
