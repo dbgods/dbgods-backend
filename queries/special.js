@@ -125,10 +125,10 @@ const getDivision = (request, response) => {
 
     const query = {
         name: 'special-division',
-        text: 'SELECT DISTINCT ' + request.body.all + ' FROM "' + request.body.table + '" as main where not exists ('
-        + '(select ' + request.body.where + ' from ' + request.body.tabledivisor + ')'
-        + ' except (select ' + request.body.where + ' from ' + request.body.tabledivisor + ' as c2 where '
-        + 'c2.' + request.body.all + ' = main.' + request.body.all + '))',
+        text: 'SELECT DISTINCT ' + request.body.where + ' FROM "' + request.body.table + '" as main where not exists ('
+        + '(select ' + request.body.all + ' from ' + request.body.tabledivisor + ')'
+        + ' except (select ' + request.body.all + ' from ' + request.body.tabledivisor + ' as c2 where '
+        + 'c2.' + request.body.where + ' = main.' + request.body.where + '))',
         values: []
     }
     // console.log(query.text)
