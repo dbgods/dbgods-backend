@@ -23,6 +23,18 @@ const getDriverSpecial = (request, response) => {
     });
 }
 
+//Nested Aggregation (incomplete) 
+const getSalaryStat = (request, response) => {
+    pool.query('SELECT * FROM "salary_statistic";', (err, results) => {
+        if (err) {
+            console.log(err.message);
+            response.status(400).json({"Error": err.message});
+        } else {
+            response.status(200).json(results.rows);
+        }
+    });
+}
+
 // Selection
 const getSelection = (request, response) => {
     log("POST", "/special/selection", JSON.stringify(request.body));
